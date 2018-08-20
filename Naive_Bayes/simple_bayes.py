@@ -43,10 +43,10 @@ def train_data(x_dict,postingList,classVec):
 		fi_jy0 while normal 
     """
     fi_y = (sum([i for i in classVec if i == 1]))/(len(classVec))
-    fi_jy1 = [0] * len(x_dict)
-    fi_jy0 =  [0]*len(x_dict)
-    y0 = 0
-    y1 = 0
+    fi_jy1 = [1] * len(x_dict)
+    fi_jy0 =  [1]*len(x_dict)
+    y0 = 2
+    y1 = 2
     for document in postingList:
         x_vector = get_document_vector(x_dict,document) 
         y = classVec[postingList.index(document)]

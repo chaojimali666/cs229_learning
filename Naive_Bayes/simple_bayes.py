@@ -61,11 +61,41 @@ def train_data(x_dict,postingList,classVec):
     fi_jy1 = [fi/y1 for fi in fi_jy1]
     return fi_y,fi_jy1,fi_jy0
 
+def classifyNB(dataset,fi_y,fi_jy0,fi_jy1):
+    fi_jy1 = np.array(fi_jy1)
+    fi_jy0 = np.array(fi_jy0)
+    p1 = (sum(dataset*fi_jy1)*fi_y)/((sum(dataset*fi_jy1))*fi_y+(sum(dataset*fi_jy0))*(1-fi_y))
+    p0 = 1-p1
+    if p1>p0:
+        return 1
+    else:
+        return 0
 
 
-
-
-
+def testingNB():
+    postingList,classVec = loadDataSet()
+    x_dict = get_feature_vector(postingList)
+    fi_y,fi_jy1,fi_jy0 = train_data(x_dict,postingList,classVec)
+    testEntry = ['love','my','dalmation']
+    dataset = get_document_vector(x_dict,testEntry)
+    dataset = array(dataset)
+    p = classifyNB(dataset,fi_y,fi_jy0,fi_jy1)
+    print(testEntry,'classify as :',p)
+    testEntry = ['stupid','garbage']
+    dataset = get_document_vector(x_dict,testEntry)
+    dataset = array(dataset)
+    p = classifyNB(dataset,fi_y,fi_jy0,fi_jy1)
+    print(testEntry,'classify as :',p)
+    testEntry = ['I','don\'t','want','to','be','a','stupid','guy']
+    dataset = get_document_vector(x_dict,testEntry)
+    dataset = array(dataset)
+    p = classifyNB(dataset,fi_y,fi_jy0,fi_jy1)
+    print(testEntry,'classify as :',p)
+    testEntry = ['you','are','a','dog']
+    dataset = get_document_vector(x_dict,testEntry)
+    dataset = array(dataset)
+    p = classifyNB(dataset,fi_y,fi_jy0,fi_jy1)
+    print(testEntry,'classify as :',p)
 
 
 
